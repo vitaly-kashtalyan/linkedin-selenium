@@ -1,0 +1,95 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.linkedin</groupId>
+    <artifactId>LinkedInSelenium</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <name>Automated adding contacts in LinkedIn with Selenium</name>
+    <url>https://github.com/vitaly-kashtalyan/linkedin-selenium</url>
+
+    <properties>
+        <project.java.version>1.8</project.java.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <chromedriver.version>2.31</chromedriver.version>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-java</artifactId>
+            <version>3.5.1</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
+        <testResources>
+            <testResource>
+                <directory>src/test/resources</directory>
+                <filtering>true</filtering>
+            </testResource>
+        </testResources>
+
+        <plugins>
+            <plugin>
+                <groupId>com.github.webdriverextensions</groupId>
+                <artifactId>webdriverextensions-maven-plugin</artifactId>
+                <version>3.1.2</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>install-drivers</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <installationDirectory>target/drivers</installationDirectory>
+                    <keepDownloadedWebdrivers>true</keepDownloadedWebdrivers>
+                    <drivers>
+                        <driver>
+                            <name>chromedriver</name>
+                            <platform>windows</platform>
+                            <bit>32</bit>
+                            <version>${chromedriver.version}</version>
+                            <url>
+                                http://chromedriver.storage.googleapis.com/${chromedriver.version}/chromedriver_win32.zip
+                            </url>
+                        </driver>
+                        <driver>
+                            <name>chromedriver</name>
+                            <platform>mac</platform>
+                            <bit>64</bit>
+                            <version>${chromedriver.version}</version>
+                            <url>
+                                http://chromedriver.storage.googleapis.com/${chromedriver.version}/chromedriver_mac64.zip
+                            </url>
+                        </driver>
+                        <driver>
+                            <name>chromedriver</name>
+                            <platform>linux</platform>
+                            <bit>64</bit>
+                            <version>${chromedriver.version}</version>
+                            <url>
+                                http://chromedriver.storage.googleapis.com/${chromedriver.version}/chromedriver_linux64.zip
+                            </url>
+                        </driver>
+                    </drivers>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>

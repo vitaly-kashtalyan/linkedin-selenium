@@ -1,0 +1,16 @@
+test-output
+.DS_Store
+.classpath
+bin/
+target
+
+#IDEA Files
+.idea
+*.iml
+*.ipr
+
+#Eclipse files
+*.settings
+*.classpath
+*.project
+*.pydevproject
