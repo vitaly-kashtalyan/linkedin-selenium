@@ -1,6 +1,7 @@
 package com.linkedin.core;
 
 
+import org.openqa.selenium.Dimension;
 import org.openqa.selenium.Platform;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -42,7 +43,10 @@ public class WebDriverFactory {
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
         driver.manage().timeouts().pageLoadTimeout(15, TimeUnit.SECONDS);
         driver.manage().timeouts().setScriptTimeout(10, TimeUnit.SECONDS);
-        driver.manage().window().maximize();
+
+        Dimension dimension = new Dimension(1440, 900);
+        driver.manage().window().setSize(dimension); // Xvfb + Jenkins
+//        driver.manage().window().maximize();
         return driver;
     }
 
