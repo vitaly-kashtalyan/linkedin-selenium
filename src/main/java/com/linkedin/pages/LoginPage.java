@@ -2,19 +2,20 @@ package com.linkedin.pages;
 
 import com.linkedin.core.BasePage;
 import com.linkedin.property.LinkedInProperty;
-import org.aeonbits.owner.ConfigFactory;
 import org.openqa.selenium.By;
+import ru.qatools.properties.PropertyLoader;
 
 import static com.linkedin.PageObjectSupplier.page;
 
 public class LoginPage extends BasePage {
 
     public HomePage logIn() {
-        LinkedInProperty linkedInProperty = ConfigFactory.create(LinkedInProperty.class);
+        LinkedInProperty linkedInProperty = PropertyLoader.newInstance()
+                .populate(LinkedInProperty.class);
 
-        loadUrl(linkedInProperty.url());
-        type(By.id("session_key-login"), linkedInProperty.username());
-        type(By.id("session_password-login"), linkedInProperty.password());
+        loadUrl(linkedInProperty.getUrl());
+        type(By.id("session_key-login"), linkedInProperty.getUsername());
+        type(By.id("session_password-login"), linkedInProperty.getPassword());
         click(By.id("btn-primary"));
         return page(HomePage.class);
     }

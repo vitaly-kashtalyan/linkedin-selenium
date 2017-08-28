@@ -1,13 +1,18 @@
 package com.linkedin.property;
 
 
-import org.aeonbits.owner.Config;
+import ru.qatools.properties.Property;
+import ru.qatools.properties.Resource;
 
-@Config.Sources({"classpath:linkedin.properties"})
-public interface LinkedInProperty extends Config {
-    String url();
+@Resource.Classpath("linkedin.properties")
+public interface LinkedInProperty {
 
-    String username();
+    @Property("url")
+    String getUrl();
 
-    String password();
+    @Property("username")
+    String getUsername();
+
+    @Property("password")
+    String getPassword();
 }
