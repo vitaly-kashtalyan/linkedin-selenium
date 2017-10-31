@@ -13,7 +13,7 @@
         <project.java.version>1.8</project.java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <chromedriver.version>2.31</chromedriver.version>
+        <chromedriver.version>2.33</chromedriver.version>
     </properties>
 
     <dependencies>
