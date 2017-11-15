@@ -6,6 +6,8 @@ import com.linkedin.pages.MyNetworkPage;
 import com.linkedin.pages.ProfilePage;
 import com.linkedin.pages.SearchPage;
 import com.linkedin.property.SearchProperty;
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
 import org.junit.Test;
 import org.openqa.selenium.WebElement;
 import ru.qatools.properties.PropertyLoader;
@@ -17,7 +19,8 @@ import java.util.Set;
 import static com.linkedin.PageObjectSupplier.page;
 import static org.junit.Assert.assertEquals;
 
-
+@Epic("LinkedIn")
+@Feature("Automated adding contacts")
 public class LinkedInTest extends BaseTest {
 
 

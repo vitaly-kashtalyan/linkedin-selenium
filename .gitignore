@@ -3,9 +3,10 @@ test-output
 .classpath
 bin/
 target
+.allure/
 
 #IDEA Files
-.idea
+.idea/
 *.iml
 *.ipr
 
@@ -14,3 +15,4 @@ target
 *.classpath
 *.project
 *.pydevproject
+

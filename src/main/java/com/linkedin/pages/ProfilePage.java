@@ -1,17 +1,19 @@
 package com.linkedin.pages;
 
 import com.linkedin.core.BasePage;
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 public class ProfilePage extends BasePage {
 
-
+    @Step
     public ProfilePage loadProfile(String url) {
         loadUrl(url);
         return this;
     }
 
+    @Step
     public ProfilePage clickConnectIfExists() {
         if (!findElements(By.xpath("//div[@class='pv-top-card-section__body']/descendant::button/span[text()='Connect']")).isEmpty()) {
             findElement(By.xpath("//div[@class='pv-top-card-section__body']/descendant::button/span[text()='Connect']")).click();
@@ -19,14 +21,17 @@ public class ProfilePage extends BasePage {
         return this;
     }
 
+    @Step
     public void clickSendNow() {
         click(By.xpath("//button[text()='Send now']"));
     }
 
+    @Step
     public String getSuccessText() {
         return findElement(By.xpath("//div/li-icon[@type='success-pebble-icon']/../span")).getText();
     }
 
+    @Step
     public WebElement getName() {
         return findElement(By.xpath("//h1[contains(@class,'pv-top-card-section__name')]"));
     }
