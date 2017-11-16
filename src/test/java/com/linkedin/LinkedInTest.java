@@ -37,13 +37,13 @@ public class LinkedInTest extends BaseTest {
 
     @Test
     public void search() {
-        SearchProperty searchProperty = PropertyLoader.newInstance()
-                .populate(SearchProperty.class);
+        SearchProperty searchProperty = PropertyLoader.newInstance().populate(SearchProperty.class);
 
+        page(HomePage.class).typeSearch(searchProperty.getSearchRequest())
+                .clickLabel2nd()
+                .typeCountry(searchProperty.getSearchCountry());
 
-        page(HomePage.class).typeSearch(searchProperty.getSearchRequest()).clickLabel2nd();
         Set<String> contacts = new HashSet<>();
-
         do {
             if (page(SearchPage.class).isNoResultsFound()) {
                 break;

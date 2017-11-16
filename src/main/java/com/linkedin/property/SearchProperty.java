@@ -12,4 +12,7 @@ public interface SearchProperty {
 
     @Property("count.profile")
     Integer getCountProfile();
+
+    @Property("search.country")
+    String getSearchCountry();
 }

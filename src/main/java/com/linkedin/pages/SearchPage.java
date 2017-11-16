@@ -5,9 +5,12 @@ import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 
 import java.util.List;
 import java.util.stream.Collectors;
+
+import static com.linkedin.core.WebDriverRunner.getDriver;
 
 public class SearchPage extends BasePage {
 
@@ -57,5 +60,26 @@ public class SearchPage extends BasePage {
     @Step
     public Boolean isNoResultsFound() {
         return !findElements(By.xpath("//h1[text()='No results found.']")).isEmpty();
+    }
+
+    @Step
+    public SearchPage typeCountry(final String searchCountry) {
+        click(By.xpath("//h3[text()='Locations']"));
+        click(By.xpath("//li[contains(@class,'search-facet--geo-region')]/descendant::span[text()='Add']"));
+
+        new Actions(getDriver())
+                .moveToElement(findElement(By.xpath("//li[contains(@class,'search-facet--geo-region')]/descendant::input[@placeholder='Add a location']")))
+                .click()
+                .sendKeys(searchCountry)
+                .build()
+                .perform();
+
+        findElementsWithWaiting(By.xpath("//li[contains(@class,'search-facet--geo-region')]/descendant::ul/li"))
+                .stream()
+                .filter(element -> element.getText().contains(searchCountry))
+                .forEach(WebElement::click);
+
+        waitLoadSearchResults();
+        return this;
     }
 }

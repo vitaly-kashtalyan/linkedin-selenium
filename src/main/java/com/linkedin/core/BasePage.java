@@ -56,4 +56,8 @@ public abstract class BasePage {
     public List<WebElement> findElements(By locator) {
         return driver.findElements(locator);
     }
+
+    public List<WebElement> findElementsWithWaiting(By locator) {
+        return wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(locator));
+    }
 }
