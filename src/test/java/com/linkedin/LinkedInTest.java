@@ -39,9 +39,10 @@ public class LinkedInTest extends BaseTest {
     public void search() {
         SearchProperty searchProperty = PropertyLoader.newInstance().populate(SearchProperty.class);
 
-        page(HomePage.class).typeSearch(searchProperty.getSearchRequest())
-                .clickLabel2nd()
-                .typeCountry(searchProperty.getSearchCountry());
+        page(HomePage.class).typeSearch(searchProperty.getSearchRequest()).clickLabel2nd();
+        if (!searchProperty.getSearchCountry().equals("")) {
+            page(SearchPage.class).typeCountry(searchProperty.getSearchCountry());
+        }
 
         Set<String> contacts = new HashSet<>();
         do {
@@ -57,6 +58,7 @@ public class LinkedInTest extends BaseTest {
 
         for (String url : contacts) {
             String name = page(ProfilePage.class).loadProfile(url).getName().getText().split("\\s+")[0];
+            getDriver().navigate().refresh();
             page(ProfilePage.class).clickConnectIfExists()
                     .clickSendNow();
 
