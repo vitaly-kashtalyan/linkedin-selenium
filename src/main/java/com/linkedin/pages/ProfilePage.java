@@ -7,6 +7,8 @@ import org.openqa.selenium.WebElement;
 
 public class ProfilePage extends BasePage {
 
+    private static final By CONNECT_BUTTON = By.xpath("//div[@class='pv-top-card-section__body']/descendant::button/span[text()='Connect']");
+
     @Step
     public ProfilePage loadProfile(String url) {
         loadUrl(url);
@@ -14,11 +16,14 @@ public class ProfilePage extends BasePage {
     }
 
     @Step
-    public ProfilePage clickConnectIfExists() {
-        if (!findElements(By.xpath("//div[@class='pv-top-card-section__body']/descendant::button/span[text()='Connect']")).isEmpty()) {
-            findElement(By.xpath("//div[@class='pv-top-card-section__body']/descendant::button/span[text()='Connect']")).click();
-        }
+    public ProfilePage clickConnectButton() {
+        findElement(By.xpath("//div[@class='pv-top-card-section__body']/descendant::button/span[text()='Connect']")).click();
         return this;
+    }
+
+    @Step
+    public Boolean isConnectButton() {
+        return !findElements(CONNECT_BUTTON).isEmpty();
     }
 
     @Step

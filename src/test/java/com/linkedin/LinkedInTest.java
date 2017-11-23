@@ -16,6 +16,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import static com.linkedin.FileTest.readContactsToFile;
 import static com.linkedin.PageObjectSupplier.page;
 import static org.junit.Assert.assertEquals;
 
@@ -37,6 +38,17 @@ public class LinkedInTest extends BaseTest {
 
     @Test
     public void search() {
+        Set<String> listUrlOfContacts = getListUrlOfContacts();
+        sendInvites(listUrlOfContacts);
+    }
+
+    @Test
+    public void sendInvitesFromFile() {
+        Set<String> listUrlOfContacts = readContactsToFile();
+        sendInvites(listUrlOfContacts);
+    }
+
+    static Set<String> getListUrlOfContacts() {
         SearchProperty searchProperty = PropertyLoader.newInstance().populate(SearchProperty.class);
 
         page(HomePage.class).typeSearch(searchProperty.getSearchRequest()).clickLabel2nd();
@@ -56,15 +68,21 @@ public class LinkedInTest extends BaseTest {
             page(SearchPage.class).clickNextIfExists();
         } while (page(SearchPage.class).isNext() && contacts.size() < searchProperty.getCountProfile());
 
-        for (String url : contacts) {
+        return contacts;
+    }
+
+    private void sendInvites(final Set<String> listUrl) {
+        for (String url : listUrl) {
             String name = page(ProfilePage.class).loadProfile(url).getName().getText().split("\\s+")[0];
             getDriver().navigate().refresh();
-            page(ProfilePage.class).clickConnectIfExists()
-                    .clickSendNow();
 
-            assertEquals("Text should be",
-                    String.format("Your invitation to %s was sent.", name),
-                    page(ProfilePage.class).getSuccessText());
+            if (page(ProfilePage.class).isConnectButton()) {
+                page(ProfilePage.class).clickConnectButton().clickSendNow();
+
+                assertEquals("Text should be",
+                        String.format("Your invitation to %s was sent.", name),
+                        page(ProfilePage.class).getSuccessText());
+            }
         }
     }
 }
