@@ -64,7 +64,7 @@ public class LinkedInTest extends BaseTest {
 
             List<String> links = page(SearchPage.class).pageDown().getContactLinks();
             contacts.addAll(links);
-
+            System.out.println(String.join(System.getProperty("line.separator"), links));
             page(SearchPage.class).clickNextIfExists();
         } while (page(SearchPage.class).isNext() && contacts.size() < searchProperty.getCountProfile());
 
