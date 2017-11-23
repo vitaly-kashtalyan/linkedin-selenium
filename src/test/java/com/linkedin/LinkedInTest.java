@@ -12,9 +12,7 @@ import org.junit.Test;
 import org.openqa.selenium.WebElement;
 import ru.qatools.properties.PropertyLoader;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 import static com.linkedin.FileTest.readContactsToFile;
 import static com.linkedin.PageObjectSupplier.page;
@@ -39,12 +37,13 @@ public class LinkedInTest extends BaseTest {
     @Test
     public void search() {
         Set<String> listUrlOfContacts = getListUrlOfContacts();
-        sendInvites(listUrlOfContacts);
+        sendInvites(new ArrayList<>(listUrlOfContacts));
     }
 
     @Test
     public void sendInvitesFromFile() {
-        Set<String> listUrlOfContacts = readContactsToFile();
+        List<String> listUrlOfContacts = new ArrayList<>(readContactsToFile());
+        Collections.shuffle(listUrlOfContacts);
         sendInvites(listUrlOfContacts);
     }
 
@@ -71,7 +70,7 @@ public class LinkedInTest extends BaseTest {
         return contacts;
     }
 
-    private void sendInvites(final Set<String> listUrl) {
+    private void sendInvites(final List<String> listUrl) {
         for (String url : listUrl) {
             String name = page(ProfilePage.class).loadProfile(url).getName().getText().split("\\s+")[0];
             getDriver().navigate().refresh();
