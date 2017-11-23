@@ -20,7 +20,7 @@ import static com.linkedin.LinkedInTest.getListUrlOfContacts;
 @Feature("Automated adding contacts")
 public class FileTest extends BaseTest {
 
-    private static final String PATH_CONTACTS = System.getProperty("java.io.tmpdir") + "in_contacts.txt";
+    private static final String PATH_CONTACTS = System.getProperty("user.home") + File.separator + "in_contacts.txt";
 
     @Test
     public void writeContactsToFile() {
