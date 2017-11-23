@@ -82,6 +82,8 @@ public class LinkedInTest extends BaseTest {
                 assertEquals("Text should be",
                         String.format("Your invitation to %s was sent.", name),
                         page(ProfilePage.class).getSuccessText());
+
+                System.out.println(url + " - done");
             }
         }
     }
