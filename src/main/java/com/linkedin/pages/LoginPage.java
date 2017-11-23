@@ -19,6 +19,7 @@ public class LoginPage extends BasePage {
         type(By.id("session_key-login"), linkedInProperty.getUsername());
         type(By.id("session_password-login"), linkedInProperty.getPassword());
         click(By.id("btn-primary"));
+        waitVisibilityOfElementLocated(By.id("feed-tab-icon"));
         return page(HomePage.class);
     }
 
