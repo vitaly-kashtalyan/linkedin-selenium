@@ -46,7 +46,6 @@ public class WebDriverFactory {
 
         Dimension dimension = new Dimension(1440, 900);
         driver.manage().window().setSize(dimension); // Xvfb + Jenkins
-//        driver.manage().window().maximize();
         return driver;
     }
 
