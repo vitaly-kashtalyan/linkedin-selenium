@@ -74,12 +74,17 @@ public class SearchPage extends BasePage {
                 .build()
                 .perform();
 
-        findElementsWithWaiting(By.xpath("//li[contains(@class,'search-facet--geo-region')]/descendant::ul/li"))
+        WebElement country = findElementsWithWaiting(By.xpath("//li[contains(@class,'search-facet--geo-region')]/descendant::ul/li"))
                 .stream()
                 .filter(element -> element.getText().contains(searchCountry))
-                .forEach(WebElement::click);
+                .findFirst()
+                .orElse(null);
 
-        waitLoadSearchResults();
+        if (country != null) {
+            new Actions(getDriver()).moveToElement(country).click().build().perform();
+            waitLoadSearchResults();
+        }
+
         return this;
     }
 }
