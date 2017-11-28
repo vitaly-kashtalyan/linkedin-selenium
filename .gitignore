@@ -4,6 +4,7 @@ test-output
 bin/
 target
 .allure/
+drivers/
 
 #IDEA Files
 .idea/

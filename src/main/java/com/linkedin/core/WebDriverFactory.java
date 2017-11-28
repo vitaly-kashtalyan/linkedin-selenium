@@ -15,7 +15,7 @@ import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 public class WebDriverFactory {
-    private static final String TARGET_DRIVERS = "target/drivers";
+    private static final String TARGET_DRIVERS = "drivers";
 
     private WebDriverFactory() {
         throw new IllegalAccessError("Illegal access to private constructor");
