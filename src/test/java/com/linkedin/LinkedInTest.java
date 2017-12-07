@@ -36,15 +36,19 @@ public class LinkedInTest extends BaseTest {
 
     @Test
     public void search() {
-        Set<String> listUrlOfContacts = getListUrlOfContacts();
-        sendInvites(new ArrayList<>(listUrlOfContacts));
+        getListUrlOfContacts().stream()
+                .limit(PropertyLoader.newInstance().populate(SearchProperty.class).getCountProfile())
+                .forEach(LinkedInTest::sendInvite);
     }
 
     @Test
     public void sendInvitesFromFile() {
         List<String> listUrlOfContacts = new ArrayList<>(readContactsToFile());
         Collections.shuffle(listUrlOfContacts);
-        sendInvites(listUrlOfContacts);
+
+        listUrlOfContacts.stream()
+                .limit(PropertyLoader.newInstance().populate(SearchProperty.class).getCountProfile())
+                .forEach(LinkedInTest::sendInvite);
     }
 
     static Set<String> getListUrlOfContacts() {
@@ -70,20 +74,18 @@ public class LinkedInTest extends BaseTest {
         return contacts;
     }
 
-    private void sendInvites(final List<String> listUrl) {
-        for (String url : listUrl) {
-            String name = page(ProfilePage.class).loadProfile(url).getName().getText().split("\\s+")[0];
-            getDriver().navigate().refresh();
+    private static void sendInvite(final String url) {
+        String name = page(ProfilePage.class).loadProfile(url).getName().getText().split("\\s+")[0];
+        getDriver().navigate().refresh();
 
-            if (page(ProfilePage.class).isConnectButton()) {
-                page(ProfilePage.class).clickConnectButton().clickSendNow();
+        if (page(ProfilePage.class).isConnectButton()) {
+            page(ProfilePage.class).clickConnectButton().clickSendNow();
 
-                assertEquals("Text should be",
-                        String.format("Your invitation to %s was sent.", name),
-                        page(ProfilePage.class).getSuccessText());
+            assertEquals("Text should be",
+                    String.format("Your invitation to %s was sent.", name),
+                    page(ProfilePage.class).getSuccessText());
 
-                System.out.println(url + " - done");
-            }
+            System.out.println(url + " - done");
         }
     }
 }
