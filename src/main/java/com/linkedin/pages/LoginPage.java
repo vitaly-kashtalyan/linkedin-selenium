@@ -16,9 +16,9 @@ public class LoginPage extends BasePage {
                 .populate(LinkedInProperty.class);
 
         loadUrl(linkedInProperty.getUrl());
-        type(By.id("session_key-login"), linkedInProperty.getUsername());
-        type(By.id("session_password-login"), linkedInProperty.getPassword());
-        click(By.id("btn-primary"));
+        type(By.id("login-email"), linkedInProperty.getUsername());
+        type(By.id("login-password"), linkedInProperty.getPassword());
+        click(By.id("login-submit"));
         waitVisibilityOfElementLocated(By.id("feed-tab-icon"));
         return page(HomePage.class);
     }
