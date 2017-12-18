@@ -13,6 +13,7 @@ import java.nio.file.Paths;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import static com.linkedin.LinkedInTest.getListUrlOfContacts;
 
@@ -25,10 +26,13 @@ public class FileTest extends BaseTest {
     @Test
     public void writeContactsToFile() {
         Set<String> listUrlOfContacts = getListUrlOfContacts();
+        writeContacts(listUrlOfContacts, true);
+    }
 
-        if (!listUrlOfContacts.isEmpty()) {
+    private static void writeContacts(Set<String> list, Boolean append) {
+        if (!list.isEmpty()) {
             try {
-                FileUtils.writeLines(new File(PATH_CONTACTS), listUrlOfContacts, true);
+                FileUtils.writeLines(new File(PATH_CONTACTS), list, append);
                 System.out.println(PATH_CONTACTS);
             } catch (IOException e) {
                 e.printStackTrace();
@@ -45,5 +49,13 @@ public class FileTest extends BaseTest {
             e.printStackTrace();
         }
         return new HashSet<>(listUrlOfContacts);
+    }
+
+    static void removeContact(final String contactUrl) {
+        Set<String> updatedLines = readContactsToFile().stream()
+                .filter(s -> !s.contains(contactUrl))
+                .collect(Collectors.toSet());
+        writeContacts(updatedLines, false);
+        System.out.println(contactUrl + " - removed");
     }
 }

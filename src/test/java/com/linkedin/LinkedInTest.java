@@ -15,6 +15,7 @@ import ru.qatools.properties.PropertyLoader;
 import java.util.*;
 
 import static com.linkedin.FileTest.readContactsToFile;
+import static com.linkedin.FileTest.removeContact;
 import static com.linkedin.PageObjectSupplier.page;
 import static org.junit.Assert.assertEquals;
 
@@ -86,6 +87,8 @@ public class LinkedInTest extends BaseTest {
                     page(ProfilePage.class).getSuccessText());
 
             System.out.println(url + " - done");
+        } else {
+            removeContact(url);
         }
     }
 }
